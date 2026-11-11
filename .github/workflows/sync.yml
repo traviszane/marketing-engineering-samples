@@ -1,0 +1,32 @@
+name: Sync Monorepo to Hugging Face Hub
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Pushes space-orchestrator/ folder to your Space
+      - name: Sync Space
+        run: |
+          git subtree split --prefix=space-orchestrator -b space-branch
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/creativecapy/Marketing-Engineering-Simulation space-branch:main --force
+
+      # Pushes model-hype-auditor/ folder to your Model repo
+      - name: Sync Model
+        run: |
+          git subtree split --prefix=model-hype-auditor -b model-branch
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/creativecapy/Hype-to-Substance-AI-Paper-Auditor model-branch:main --force
+
+      # Pushes dataset-depth-bench/ folder to your Dataset repo
+      - name: Sync Dataset
+        run: |
+          git subtree split --prefix=dataset-depth-bench -b dataset-branch
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/datasets/creativecapy/GTA-Physics-vs-Reality-Depth-Bench dataset-branch:main --force
