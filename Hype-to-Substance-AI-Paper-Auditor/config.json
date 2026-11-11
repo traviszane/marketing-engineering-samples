@@ -1,0 +1,5 @@
+{
+  "architectures": ["BertForSequenceClassification"],
+  "model_type": "bert",
+  "num_labels": 2
+}
