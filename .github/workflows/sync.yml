@@ -13,20 +13,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 1. Syncs Space
       - name: Sync Space
         run: |
-          git subtree split --prefix=research-to-x-thread-generator -b space-branch
-          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/creativecapy/research-to-x-thread-generator space-branch:main --force
+          git subtree split --prefix=research-to-x-thread-generator -b space-sync
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/creativecapy/research-to-x-thread-generator space-sync:main --force
 
-      # 2. Syncs Model
       - name: Sync Model
         run: |
-          git subtree split --prefix=Hype-to-Substance-AI-Paper-Auditor -b model-branch
-          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/creativecapy/Hype-to-Substance-AI-Paper-Auditor model-branch:main --force
+          git subtree split --prefix=Hype-to-Substance-AI-Paper-Auditor -b model-sync
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/creativecapy/Hype-to-Substance-AI-Paper-Auditor model-sync:main --force
 
-      # 3. Syncs Dataset
       - name: Sync Dataset
         run: |
-          git subtree split --prefix=GTA-Physics-vs-Reality-Depth-Bench -b dataset-branch
-          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/datasets/creativecapy/GTA-Physics-vs-Reality-Depth-Bench dataset-branch:main --force
+          git subtree split --prefix=GTA-Physics-vs-Reality-Depth-Bench -b dataset-sync
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/datasets/creativecapy/GTA-Physics-vs-Reality-Depth-Bench dataset-sync:main --force
