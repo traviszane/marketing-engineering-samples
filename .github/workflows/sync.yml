@@ -10,25 +10,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Configure Git Credentials
+      - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Sync Space
         run: |
-          git subtree split --prefix=research-to-x-thread-generator -b space-sync
-          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/creativecapy/research-to-x-thread-generator space-sync:main --force
+          cd research-to-x-thread-generator
+          git init
+          git checkout -b main
+          git add .
+          git commit -m "Deploy Space from GitHub Actions"
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/creativecapy/research-to-x-thread-generator main --force
 
       - name: Sync Model
         run: |
-          git subtree split --prefix=Hype-to-Substance-AI-Paper-Auditor -b model-sync
-          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/creativecapy/Hype-to-Substance-AI-Paper-Auditor model-sync:main --force
+          cd Hype-to-Substance-AI-Paper-Auditor
+          git init
+          git checkout -b main
+          git add .
+          git commit -m "Deploy Model from GitHub Actions"
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/creativecapy/Hype-to-Substance-AI-Paper-Auditor main --force
 
       - name: Sync Dataset
         run: |
-          git subtree split --prefix=GTA-Physics-vs-Reality-Depth-Bench -b dataset-sync
-          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/datasets/creativecapy/GTA-Physics-vs-Reality-Depth-Bench dataset-sync:main --force
+          cd GTA-Physics-vs-Reality-Depth-Bench
+          git init
+          git checkout -b main
+          git add .
+          git commit -m "Deploy Dataset from GitHub Actions"
+          git push https://creativecapy:${{ secrets.HF_TOKEN }}@huggingface.co/datasets/creativecapy/GTA-Physics-vs-Reality-Depth-Bench main --force
